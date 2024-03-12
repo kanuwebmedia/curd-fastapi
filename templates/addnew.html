@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+<form  id="myForm" onsubmit="return validateForm()"action = "/add" method = "post" > 
+    <div class="mb-3">
+        <label>Name</label>
+        <input type = "text" name = "name" placeholder = "Name" id="name" class="form-control" required/>
+        <span id="nameError" class="error"></span>
+    </div> 
+    <div class="mb-3">
+        <label>Position</label>
+        <input type = "text" name = "position" placeholder = "position" id="position"class="form-control"required />
+        <span id="positionError" class="error"></span>
+    </div> 
+    <div class="mb-3">
+        <label>Office</label>
+        <input type = "text" name = "office" placeholder = "office"id="office" class="form-control"required />
+        <span id="officeError" class="error"></span>
+    </div> 
+ 
+    <input type = "submit" value = "Submit" class="btn btn-primary mb-3"/>  
+ </form> 
+  
+
+ <script>
+    function validateForm() {
+      // Reset error messages
+      document.getElementById("nameError").innerHTML = "";
+      document.getElementById("positionError").innerHTML = "";
+      document.getElementById("officeError").innerHTML = "";
+
+      // Get form inputs
+      var name = document.getElementById("name").value;
+      var position = document.getElementById("position").value;
+      var office = document.getElementById("office").value;
+
+      // Validate name (non-empty)
+      if (name === "") {
+        document.getElementById("nameError").innerHTML = "Name is required";
+        return false;
+      }
+
+      // Validate email (basic email format)
+      var positionRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!positionRegex.test(position)) {
+        document.getElementById("positionError").innerHTML = "Invalid email format";
+        return false;
+      }
+
+      // Validate password (minimum length)
+      if (office.length < 6) {
+        document.getElementById("officeError").innerHTML = "Password must be at least 6 characters";
+        return false;
+      }
+
+      // If all validations pass, the form can be submitted
+      return true;
+    }
+  </script>
+
+{% endblock content %}
